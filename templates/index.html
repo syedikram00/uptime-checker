@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uptime Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-inner">
+            <span class="brand">Uptime Monitor</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="summary-bar">
+            <div class="summary-stat">
+                <span class="summary-value">{{ monitors|length }}</span>
+                <span class="summary-label">Monitors</span>
+            </div>
+
+            <div class="summary-stat">
+                <span class="summary-value">
+                    {{ monitors|selectattr('latest_status', 'equalto', true)|list|length }}
+                </span>
+                <span class="summary-label">Online</span>
+            </div>
+
+            <div class="summary-stat">
+                <span class="summary-value">
+                    {{ monitors|selectattr('latest_status', 'equalto', false)|list|length }}
+                </span>
+                <span class="summary-label">Down</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2 class="panel-title">Add a monitor</h2>
+
+            <form method="post" action="/add-monitor" class="monitor-form">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Site name"
+                    required
+                >
+
+                <input
+                    type="url"
+                    name="url"
+                    placeholder="https://example.com"
+                    required
+                >
+
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <div class="monitor-list">
+            {% for monitor in monitors %}
+
+            <div class="monitor-card">
+
+                <div class="monitor-top">
+                    <div class="monitor-identity">
+
+                        <span class="status-dot {{ 'up' if monitor.latest_status else ('down' if monitor.latest_status is not none else 'pending') }}"></span>
+
+                        <div>
+                            <div class="monitor-name">
+                                {{ monitor.name }}
+                            </div>
+
+                            <div class="monitor-url">
+                                {{ monitor.url }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <span class="status-badge {{ 'up' if monitor.latest_status else ('down' if monitor.latest_status is not none else 'pending') }}">
+                        {{ 'Operational' if monitor.latest_status else ('Down' if monitor.latest_status is not none else 'Pending') }}
+                    </span>
+                </div>
+
+                <div class="monitor-footer">
+
+                    <div>
+                        {% if monitor.uptime_pct is not none %}
+                            <span class="uptime-value">
+                                {{ monitor.uptime_pct }}%
+                            </span>
+
+                            <span class="uptime-label">
+                                uptime · {{ monitor.total_checks }} checks
+                            </span>
+                        {% else %}
+                            <span class="pending-text">
+                                Waiting on first check cycle
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <form method="post" action="/delete-monitor/{{ monitor.id }}" class="delete-form">
+                        <button type="submit" class="delete-btn">
+                            Remove
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+                No monitors yet. Add one above to get started.
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

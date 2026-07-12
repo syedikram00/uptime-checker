@@ -1,0 +1,257 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f6f7f9;
+    margin: 0;
+    color: #1a1d23;
+}
+
+.topbar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 0;
+}
+
+.topbar-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.brand {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+}
+
+.summary-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.summary-stat {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px 20px;
+    text-align: center;
+}
+
+.summary-value {
+    display: block;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.summary-label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+.panel {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-bottom: 28px;
+}
+
+.panel-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 14px;
+}
+
+.monitor-form {
+    display: flex;
+    gap: 10px;
+}
+
+.monitor-form input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.monitor-form input:focus {
+    outline: none;
+    border-color: #1a1d23;
+}
+
+.monitor-form button {
+    background: #1a1d23;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s ease;
+}
+
+.monitor-form button:hover {
+    background: #333740;
+}
+
+.monitor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.monitor-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color 0.15s ease;
+}
+
+.monitor-card:hover {
+    border-color: #d1d5db;
+}
+
+.monitor-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.monitor-identity {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.status-dot.up {
+    background: #16a34a;
+}
+
+.status-dot.down {
+    background: #dc2626;
+}
+
+.status-dot.pending {
+    background: #9ca3af;
+}
+
+.monitor-name {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.monitor-url {
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.status-badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.status-badge.up {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status-badge.down {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-badge.pending {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.monitor-footer {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #f0f1f3;
+    font-size: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.uptime-value {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.uptime-label {
+    color: #6b7280;
+    margin-left: 6px;
+}
+
+.pending-text {
+    color: #9ca3af;
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    color: #9ca3af;
+    padding: 40px 0;
+    font-size: 14px;
+}
+
+.delete-form {
+    margin: 0;
+}
+
+.delete-btn {
+    background: none;
+    border: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+    border-color: #dc2626;
+    color: #dc2626;
+}

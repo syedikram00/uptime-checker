@@ -14,6 +14,7 @@ class MonitorDB(Base):
     id = Column(String, primary_key=True)
     name = Column(String, nullable=False)
     url = Column(String, nullable=False)
+    webhook_url = Column(String, nullable=True)
     checks = relationship("CheckResultDB", back_populates="monitor")
 
 class CheckResultDB(Base):
