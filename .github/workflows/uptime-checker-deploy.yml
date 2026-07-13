@@ -3,7 +3,7 @@ name: Uptime-Monitor-Application with PostgreSQL
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   test:
