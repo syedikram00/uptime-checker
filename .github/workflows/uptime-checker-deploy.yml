@@ -48,6 +48,7 @@ jobs:
       - name: Run pytest
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/uptime
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest
 
