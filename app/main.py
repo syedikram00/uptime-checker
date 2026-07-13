@@ -275,9 +275,14 @@ def dashboard(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "monitors": monitor_data})
 
 @app.post("/add-monitor", response_class=HTMLResponse)
-def add_monitor_form(request: Request, name: str = Form(...), url: str = Form(...)):
+def add_monitor_form(request: Request, name: str = Form(...), url: str = Form(...), webhook_url: str = Form(None)):
     db = SessionLocal()
-    new_monitor = MonitorDB(id=str(uuid.uuid4()), name=name, url=url)
+    new_monitor = MonitorDB(
+        id=str(uuid.uuid4()),
+        name=name,
+        url=url,
+        webhook_url=webhook_url if webhook_url else None
+    )
     db.add(new_monitor)
     db.commit()
     db.close()

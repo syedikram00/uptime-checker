@@ -14,6 +14,7 @@
     </div>
 
     <div class="container">
+
         <div class="summary-bar">
             <div class="summary-stat">
                 <span class="summary-value">{{ monitors|length }}</span>
@@ -39,6 +40,7 @@
             <h2 class="panel-title">Add a monitor</h2>
 
             <form method="post" action="/add-monitor" class="monitor-form">
+
                 <input
                     type="text"
                     name="name"
@@ -53,16 +55,25 @@
                     required
                 >
 
+                <input
+                    type="url"
+                    name="webhook_url"
+                    placeholder="Webhook URL (optional)"
+                >
+
                 <button type="submit">Add</button>
+
             </form>
         </div>
 
         <div class="monitor-list">
+
             {% for monitor in monitors %}
 
             <div class="monitor-card">
 
                 <div class="monitor-top">
+
                     <div class="monitor-identity">
 
                         <span class="status-dot {{ 'up' if monitor.latest_status else ('down' if monitor.latest_status is not none else 'pending') }}"></span>
@@ -82,6 +93,7 @@
                     <span class="status-badge {{ 'up' if monitor.latest_status else ('down' if monitor.latest_status is not none else 'pending') }}">
                         {{ 'Operational' if monitor.latest_status else ('Down' if monitor.latest_status is not none else 'Pending') }}
                     </span>
+
                 </div>
 
                 <div class="monitor-footer">
@@ -119,7 +131,9 @@
             </div>
 
             {% endfor %}
+
         </div>
+
     </div>
 </body>
 </html>
