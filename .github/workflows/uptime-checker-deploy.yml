@@ -47,7 +47,7 @@ jobs:
       # Run tests
       - name: Run pytest
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/uptime
+          DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/uptime
           PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest
