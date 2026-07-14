@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: uptime-checker-app-deploy
+  labels:
+    app: uptime-checker
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uptime-checker
+  template:
+    metadata:
+     labels:
+       app: uptime-checker
+    spec:
+      containers:
+        - name: uptime-monitor-container
+          image: ikramsyed/uptime-monitor:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL 
+              value: postgresql+psycopg://postgres:postgres@postgres-service:5432/uptime
+

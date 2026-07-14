@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: app-service
+
+spec:
+  type: ClusterIP
+  selector:
+    app: uptime-checker
+  ports:
+    - port: 8000
+      targetPort: 8000 
