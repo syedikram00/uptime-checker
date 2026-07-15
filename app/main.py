@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request, Form
 from pydantic import BaseModel, HttpUrl
-from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy.orm import Session
 from fastapi import Request
 from fastapi.responses import HTMLResponse
@@ -33,53 +32,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
-def send_alert(webhook_url: str, monitor_name: str, is_up: bool):
-    try:
-        status_text = "back UP" if is_up else "DOWN"
-        payload = {"content": f"Alert: {monitor_name} is {status_text}"}
-        requests.post(webhook_url, json=payload, timeout=5)
-    except requests.RequestException:
-        pass  # don't crash the checker if the webhook itself fails
-
-
-def check_all_monitors():
-    db: Session = SessionLocal()
-    try:
-        all_monitors = db.query(MonitorDB).all()
-        for monitor in all_monitors:
-            try:
-                response = requests.get(monitor.url, timeout=5)
-                is_up = response.status_code < 400
-            except requests.RequestException:
-                is_up = False
-
-            last_check = db.query(CheckResultDB)\
-                .filter(CheckResultDB.monitor_id == monitor.id)\
-                .order_by(CheckResultDB.timestamp.desc())\
-                .first()
-
-            state_changed = last_check is not None and last_check.is_up != is_up
-
-            result = CheckResultDB(
-                id=str(uuid.uuid4()),
-                monitor_id=monitor.id,
-                timestamp=datetime.datetime.utcnow(),
-                is_up=is_up
-            )
-            db.add(result)
-
-            if state_changed and monitor.webhook_url:
-                send_alert(monitor.webhook_url, monitor.name, is_up)
-
-        db.commit()
-    finally:
-        db.close()
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(check_all_monitors, "interval", seconds=30)
-scheduler.start()
 
 
 @app.get("/health")

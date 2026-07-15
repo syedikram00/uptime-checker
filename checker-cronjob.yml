@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: uptime-checker
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: checker
+            image: ikramsyed/uptime-checker:latest
+            env:
+              - name: DATABASE_URL
+                value: postgresql+psycopg://postgres:postgres@postgres-service:5432/uptime
+          restartPolicy: OnFailure

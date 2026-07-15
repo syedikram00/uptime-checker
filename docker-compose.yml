@@ -11,6 +11,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  checker:
+    build:
+      context: .
+      dockerfile: Dockerfile.checker
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/uptime
+    depends_on:
+      - postgres    
 
   app:
     build: .
